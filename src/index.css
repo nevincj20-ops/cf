@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+    --mouse-x: 50vw;
+    --mouse-y: 50vh;
+    --cursor-active: 1;
+  }
+  
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.7);
+}
+
+/* Liquid Glass Ambient Background Animation (Section 31) */
+@keyframes ambientDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -40px) scale(1.08);
+  }
+  66% {
+    transform: translate(-25px, 20px) scale(0.95);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-ambient-1 {
+  animation: ambientDrift 28s ease-in-out infinite;
+}
+
+.animate-ambient-2 {
+  animation: ambientDrift 36s ease-in-out infinite reverse;
+}
+
+/* Cursor Dynamic Light Field */
+.cursor-light-field {
+  background: radial-gradient(
+    700px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh),
+    rgba(16, 185, 129, 0.05),
+    rgba(99, 102, 241, 0.03) 40%,
+    transparent 80%
+  );
+  opacity: var(--cursor-active, 1);
+  transition: opacity 0.5s ease;
+}
+
+/* Print Styles for Formal Academic Reports (Section 36) */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  header, footer, .print\:hidden {
+    display: none !important;
+  }
+
+  .recharts-responsive-container {
+    max-height: 300px !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+
+/* Reduced motion preference (Section 34) */
+@media (prefers-reduced-motion: reduce) {
+  .animate-ambient-1,
+  .animate-ambient-2,
+  .cursor-light-field {
+    animation: none !important;
+    transform: none !important;
+  }
+}
